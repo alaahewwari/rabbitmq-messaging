@@ -45,17 +45,17 @@ jobs:
         done
          nc -z rabbitmq 5672
 
-    - name: Test RabbitMqSender (CI environment)
+    - name: Test RabbitMqSender
       env:
         DOTNET_ENVIRONMENT: CI
       run: dotnet run --project ./RabbitMqSender
   
-    - name: Test RabbitMqEmailReceiver (CI environment)
+    - name: Test RabbitMqEmailReceiver
       env:
         DOTNET_ENVIRONMENT: CI
       run: dotnet run --project ./RabbitMqEmailReceiver
       
-    - name: Test RabbitMqSmsReceiver (CI environment)
+    - name: Test RabbitMqSmsReceiver
       env:
         DOTNET_ENVIRONMENT: CI
       run: dotnet run --project ./RabbitMqSmsReceiver
