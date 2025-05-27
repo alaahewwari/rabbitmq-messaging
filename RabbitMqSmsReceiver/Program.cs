@@ -12,16 +12,16 @@ IConfiguration config = new ConfigurationBuilder()
 
 // Read RabbitMQ config values
 var rabbitSection = config.GetSection("RabbitMQ");
-string uri = rabbitSection["Uri"];
-string exchangeName = rabbitSection["ExchangeName"];
-string routingKey = rabbitSection["RoutingKey"];
-string clientName = rabbitSection["ClientName"];
+string? uri = rabbitSection["Uri"];
+string? exchangeName = rabbitSection["ExchangeName"];
+string? routingKey = rabbitSection["RoutingKey"];
+string? clientName = rabbitSection["ClientName"];
 int processingDelaySeconds = int.TryParse(rabbitSection["ProcessingDelaySeconds"], out var delay) ? delay : 1;
 
 // Create a RabbitMQ connection factory
 ConnectionFactory factory = new()
 {
-    Uri = new Uri(uri),
+    Uri = new Uri(uri!),
     ClientProvidedName = clientName
 };
 

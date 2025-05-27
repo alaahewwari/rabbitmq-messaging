@@ -10,18 +10,18 @@ IConfiguration config = new ConfigurationBuilder()
     .Build();
 // Read RabbitMQ configuration values
 var rabbitSection = config.GetSection("RabbitMQ");
-string uri = rabbitSection["Uri"];
-string exchangeName = rabbitSection["ExchangeName"];
-string routingKey1 = rabbitSection["RoutingKey1"];
-string routingKey2 = rabbitSection["RoutingKey2"];
-string clientName = rabbitSection["ClientName"];
-int messageCount = int.Parse(rabbitSection["MessageCount"]);
-int delayMilliseconds = int.Parse(rabbitSection["DelayMilliseconds"]);
+string? uri = rabbitSection["Uri"];
+string? exchangeName = rabbitSection["ExchangeName"];
+string? routingKey1 = rabbitSection["RoutingKey1"];
+string? routingKey2 = rabbitSection["RoutingKey2"];
+string? clientName = rabbitSection["ClientName"];
+int messageCount = int.Parse(rabbitSection["MessageCount"]!);
+int delayMilliseconds = int.Parse(rabbitSection["DelayMilliseconds"]!);
 
 // Create a RabbitMQ connection factory
 ConnectionFactory factory = new()
 {
-    Uri = new Uri(uri),
+    Uri = new Uri(uri!),
     ClientProvidedName = clientName
 };
 

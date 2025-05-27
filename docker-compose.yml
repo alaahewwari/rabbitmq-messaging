@@ -1,8 +1,9 @@
-version: '3.8'
+version: '3.9'
 
 services:
   rabbitmq:
     image: rabbitmq:3-management
+    container_name: rabbitmq-dev
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -10,17 +11,23 @@ services:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
 
+  sender:
+    build:
+      context: ./RabbitMq/RabbitMqSender
+      dockerfile: Dockerfile
+    depends_on:
+      - rabbitmq
+
   email_receiver:
-    build: ./EmailReceiver
+    build:
+      context: ./RabbitMq/RabbitMqEmailReceiver
+      dockerfile: Dockerfile
     depends_on:
       - rabbitmq
 
   sms_receiver:
-    build: ./SmsReceiver
-    depends_on:
-      - rabbitmq
-
-  sender:
-    build: ./RabbitSender
+    build:
+      context: ./RabbitMq/RabbitMqSmsReceiver
+      dockerfile: Dockerfile
     depends_on:
       - rabbitmq
