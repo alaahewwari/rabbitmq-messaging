@@ -16,7 +16,7 @@ string? uri = rabbitSection["Uri"];
 string? exchangeName = rabbitSection["ExchangeName"];
 string? routingKey = rabbitSection["RoutingKey"];
 string? clientName = rabbitSection["ClientName"];
-int processingDelaySeconds = int.TryParse(rabbitSection["ProcessingDelaySeconds"], out var delay) ? delay : 1;
+int processingDelaySeconds = int.TryParse(rabbitSection["DelayMilliseconds"], out var delay) ? delay : 1;
 
 // Create a RabbitMQ connection factory
 ConnectionFactory factory = new()
@@ -42,7 +42,7 @@ var consumer = new EventingBasicConsumer(channel);
 consumer.Received += (sender, args) =>
 {
     // Simulate processing delay
-    Task.Delay(TimeSpan.FromSeconds(processingDelaySeconds)).Wait();
+    Task.Delay(TimeSpan.FromMicroseconds(processingDelaySeconds)).Wait();
 
     // Decode and display the message
     var body = args.Body.ToArray();

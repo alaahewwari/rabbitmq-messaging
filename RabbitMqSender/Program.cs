@@ -68,7 +68,7 @@ for (int i = 0; i < messageCount; i++)
     channel.BasicPublish(exchangeName, routingKey2, null, smsBytes);
     Console.WriteLine($"Sent to SMS Queue: {smsMessage}");
 
-    Thread.Sleep(delayMilliseconds);
+    System.Threading.Thread.Sleep(delayMilliseconds);
 }
 
 // The connection and channel are closed automatically because of 'using'
