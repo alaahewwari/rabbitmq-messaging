@@ -2,10 +2,12 @@
 using RabbitMQ.Client.Events;
 using System.Text;
 using Microsoft.Extensions.Configuration;
+var environment = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT") ?? "Development";
 
-// Load configuration from appsettings.json
-var config = new ConfigurationBuilder()
-    .AddJsonFile("appsettings.json")
+IConfiguration config = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json", optional: true)
+    .AddJsonFile($"appsettings.{environment}.json", optional: true)
+    .AddEnvironmentVariables()
     .Build();
 
 // Read RabbitMQ config values

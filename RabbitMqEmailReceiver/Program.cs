@@ -3,11 +3,13 @@ using RabbitMQ.Client.Events;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 
-// Load configuration from appsettings.json
-var config = new ConfigurationBuilder()
-    .AddJsonFile("appsettings.json")
-    .Build();
+var environment = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT") ?? "Development";
 
+IConfiguration config = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json", optional: true)
+    .AddJsonFile($"appsettings.{environment}.json", optional: true)
+    .AddEnvironmentVariables()
+    .Build();
 // Read RabbitMQ config values
 var rabbitSection = config.GetSection("RabbitMQ");
 string uri = rabbitSection["Uri"];
