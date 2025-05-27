@@ -17,6 +17,7 @@ string? routingKey2 = rabbitSection["RoutingKey2"];
 string? clientName = rabbitSection["ClientName"];
 int messageCount = int.Parse(rabbitSection["MessageCount"]!);
 int delayMilliseconds = int.Parse(rabbitSection["DelayMilliseconds"]!);
+Console.WriteLine($"[Connecting to RabbitMQ at: {uri}]");
 
 // Create a RabbitMQ connection factory
 ConnectionFactory factory = new()
