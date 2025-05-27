@@ -36,6 +36,13 @@ jobs:
 
     - name: Build all projects
       run: dotnet build --configuration Release
+    - name: Wait for RabbitMQ to be ready
+      run: |
+        for i in {1..10}; do
+          nc -z rabbitmq 5672 && echo "✅ RabbitMQ is up!" && break
+          echo "⏳ Waiting for RabbitMQ..."
+        sleep 3
+        done
 
     - name: Test RabbitMqSender (CI environment)
       env:
