@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  email_receiver:
+    build: ./EmailReceiver
+    depends_on:
+      - rabbitmq
+
+  sms_receiver:
+    build: ./SmsReceiver
+    depends_on:
+      - rabbitmq
+
+  sender:
+    build: ./RabbitSender
+    depends_on:
+      - rabbitmq
