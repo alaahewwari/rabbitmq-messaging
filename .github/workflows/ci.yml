@@ -43,6 +43,7 @@ jobs:
           echo "⏳ Waiting for RabbitMQ..."
         sleep 3
         done
+         nc -z rabbitmq 5672
 
     - name: Test RabbitMqSender (CI environment)
       env:
